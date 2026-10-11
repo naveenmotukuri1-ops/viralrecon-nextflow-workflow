@@ -1,0 +1,172 @@
+getwd()
+list.files()
+#this codes prints hello world
+print("helllo world")
+library(tidyverse)
+<- read.csv("variants_long_table.csv")
+<- read.csv("variants_long_table.csv")
+var <- read.csv("variants_long_table.csv")
+heads(var)
+head(var)
+# check the dminension of the data
+dim(var)
+#check number of rows
+nrow(var)
+#check number of rowa
+ncol(var)
+# Dislay the sturcture of the R object
+str(var)
+# summary of the whole data or specified data
+#for the whole table
+summary(var)
+#for non numerical data
+summary(var$SAMPLE)
+#for numerical data
+summary(var$DP)
+#check the class of your data
+class(var)
+#check the class of an object
+class(var)
+class(var$CHROM)
+typeof(var$SAMPLE)
+# Preview the data using a spreadsheet-style data viewer in RStudio
+> View(var)
+view(var)
+head()
+list.files()
+view(var)
+view(var)
+view(var)
+colnames()
+colnames(var)
+#select columns 1,4, and 5
+var[, c(1, 4, 5)]
+# select columns 1, 4, 5, with default display
+select(var, SAMPLE, REF, ALT)
+select(var, SAMPLE, REF, ALT) %>% head(3)
+# Select all columns except the column “CALLER” with selected display
+select(var, -CALLER) %>% head(3)
+select(var, -CALLER) %>% head(3)
+var_tb <- as_tibble(var)
+select(var_tb, SAMPLE, REF, ALT) %>% head(3)
+# Filtering Rows
+# Filtering Rows
+var_tb[var_tb$SAMPLE == "SRR13500958",]
+# Select rows with selected display using dplyr functions
+filter(var_tb, SAMPLE == "SRR13500958") %>% head(3)
+# Select sample type (rows) and variables (columns) with selected display
+var_tb %>% filter(SAMPLE == "SRR13500958") %>% select(CHROM, POS, REF, ALT) %>% head(3)
+var_tb %>% filter(SAMPLE == "SRR13500958") %>% select(CHROM, POS, REF, ALT, DP)
+# A tibble: 21 × 5
+CHROM        POS REF   ALT      DP
+# To select only values for which DP>=500 for the same sample
+var_tb %>% filter(SAMPLE == "SRR13500958" & DP>=500) %>% select(CHROM, POS, REF, ALT, DP)
+# A tibble: 16 × 5
+#CHROM        POS REF   ALT      DP
+#<chr>      <int> <chr> <chr> <int>
+# A tibble: 16 × 5
+#CHROM        POS REF   ALT      DP
+#<chr>      <int> <chr> <chr> <int>
+var_tb %>% filter(SAMPLE == "SRR13500958" & DP>=500) %>% select(CHROM, POS, REF, ALT, DP)
+# Count how many rows are associated with each sample in the data
+var_tb %>% count(SAMPLE)
+# Sorting the counts
+var_tb %>% count(SAMPLE, sort = TRUE)
+# Maximum value of column DP
+> max(var_tb$DP)
+max(var_tb$DP)
+# Minimum value of column DP
+min(var_tb$DP)
+# Mean value of column DP
+mean(var_tb$DP)
+# Compute a LOG2 transformation on the DP values
+var_tb_log <- var_tb %>% mutate(DP_log2 = log2(DP))
+# View the table columns with the DP_log2 new column appended at the end
+head(var_tb_log)
+# View a selected content including the new column
+> select(var_tb_log, SAMPLE, REF, ALT, DP, DP_log2) %>% head()
+select(var_tb_log, SAMPLE, REF, ALT, DP, DP_log2) %>% head()
+# Show the maximum value of DP for each sample
+var_tb %>% group_by(SAMPLE) %>% summarize(max(DP))
+# Show the minimum value of DP for each sample
+var_tb %>% group_by(SAMPLE) %>% summarize(min(DP))
+ggplot(data = var_tb)
+# Link ggplot2 to specific variables using aesthetics
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP))
+# Points (left-hand plot)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_point()
+# Boxplot (right-hand plot)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_boxplot()
+# Points (left-hand plot)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_point() + ylim(0,10000)
+# Boxplot (right-hand plot)
+> ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_boxplot() + ylim(0,10000)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_boxplot() + ylim(0,10000)
+# Points (left-hand plot)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_point() + scale_y_continuous(trans='log10')
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_point() + scale_y_log10()
+# Boxplot (right-hand plot)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_boxplot() + scale_y_continuous(trans='log10')
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) + geom_boxplot() + scale_y_log10()
+# Colours of shapes
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, colour = SAMPLE)) + geom_boxplot() + ylim(0,10000)
+# Colours for filling options
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000)
+# Colours for filling options with manual colors
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_manual(values=c("#cb6015", "#e1ad01", "#6d0016", "#808000", "#4e3524"))
+# Colours for filling options with preset palettes
+install.packages(“RColorBrewer”)
+install.packages(“RColorBrewer”)
+install.packages("RColorBrewer")
+install.packages("RColorBrewer")
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_manual(values=c("#cb6015", "#e1ad01", "#6d0016", "#808000", "#4e3524"))
+# Colours for filling options with preset palettes install.packages(“RColorBrewer”)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu")
+display.brewer.all()
+disp> display.brewer.all()
+display.brewer.all()
+library(RColorBrewer)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + theme(legend.position="top")
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + theme(legend.position="none")
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + theme(legend.position="bottom") + labs(title="DP_per_Sample", x="SampleID", y = "DP")
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP, fill= SAMPLE)) + geom_boxplot() + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + theme(legend.position="bottom") + ggtitle("DP per Sample") + xlab("Sample") + ylab("DP")
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) +  geom_point(shape = 21, fill = "#e4dbc1", color = "#b92e17", size = 6) + ylim(0,10000)
+ggplot(data = var_tb, aes(x=SAMPLE, y=DP)) +  geom_point(shape = 23, color = "#e4dbc1", fill = "#b92e17", size = 5, alpha=0.5) + ylim(0,10000)
+ggpubr::show_point_shapes()
+ggpubr::show_point_shapes()
+# Define a variable with plotting options p_DP_CHROM <- ggplot(data = var_tb, aes(x=CHROM, y=DP, fill= SAMPLE)) + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + labs(title="DP_per_Chromosome") + theme(legend.position="bottom")
+p_DP_CHROM <- ggplot(data = var_tb, aes(x=CHROM, y=DP, fill= SAMPLE)) + ylim(0,10000) + scale_fill_brewer(palette="RdYlBu") + labs(title="DP_per_Chromosome") + theme(legend.position="bottom")
+# Test boxplots with faceting
+p_DP_CHROM + geom_boxplot() + facet_grid(. ~ SAMPLE)
+# Combine violin plots and boxplots with faceting
+p_DP_CHROM + geom_violin(trim=FALSE) + facet_grid(. ~ SAMPLE) + geom_boxplot(width=0.1)
+p_DP_CHROM + geom_boxplot() + facet_grid(. ~ SAMPLE)
+# Count number of different effects per sample
+#Plotting the vairants effects
+p_EFFECT <- ggplot(data = var_tb, aes(x=EFFECT, fill= SAMPLE)) + scale_fill_brewer(palette="RdBu") + labs(title="Effect_per_Sample") + theme(legend.position="bottom")
+p_EFFECT + geom_bar()
+# Flip orientationp_EFFECT_flip <- ggplot(data = var_tb, aes(y=EFFECT, fill= SAMPLE)) + scale_fill_brewer(palette="RdBu") + labs(title="Effect_per_Sample") + theme(legend.position="bottom")
+p_EFFECT_flip <- ggplot(data = var_tb, aes(y=EFFECT, fill= SAMPLE)) + scale_fill_brewer(palette="RdBu") + labs(title="Effect_per_Sample") + theme(legend.position="bottom")
+p_EFFECT_flip + geom_bar()
+# Count the number of different effects
+var_tb %>% count(EFFECT)
+# Count the number of different effects and link them to sample information
+var_tb %>% count(EFFECT, SAMPLE, sort = TRUE)
+# Counting the effects per gene
+var_tb %>% count(EFFECT, GENE, sort = TRUE)
+# Filtering option 1 to select for effect on stop
+# Filtering option 2 to select for effect on stop
+> filter(var_tb, EFFECT %in% c("stop_lost", "stop_gained"))
+filter(var_tb, EFFECT %in% c("stop_lost", "stop_gained"))
+# Filtering on effect and selected columns
+# Filtering on effect and selected columns
+filter(var_tb, EFFECT %in% c("stop_lost", "stop_gained")) %>% select(SAMPLE, CHROM, GENE, EFFECT)
+# Define your variable
+p_DP_POS <- ggplot(data = var_tb, aes(x=POS, y=DP, fill= SAMPLE)) + scale_fill_brewer(palette="RdBu") + labs(title="DP_per_Position") + theme(legend.position="bottom")
+#Plot
+# Plot p_DP_POS + geom_point(shape = 21, size = 5)
+p_DP_POS + geom_point(shape = 21, size = 5)
+# Plot with transparency options
+p_DP_POS + geom_point(shape = 21, size = 5, alpha = 0.7)
+wd
+get(wd)
